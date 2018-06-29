@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:edge
 
 LABEL maintainer Kyokuheki <kyokuheki@gmail.com>
 
