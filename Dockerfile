@@ -2,7 +2,7 @@ FROM alpine
 
 LABEL maintainer Kyokuheki <kyokuheki@gmail.com>
 
-RUN apk add --update --no-cache clamav clamav-daemon clamav-libunrar freshclam
+RUN apk add --no-cache clamav clamav-daemon clamav-libunrar freshclam
 ADD *.conf /etc/clamav/
 RUN freshclam
 
