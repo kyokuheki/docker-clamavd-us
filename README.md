@@ -1,5 +1,5 @@
 # docker-clamavd-us
-Unusable security is not security! This is a dockerized antivirus to sham and comply with unusable security rules.
+Unusable security is not security! This is a dockerized antivirus to comply sincerely with unusable security rules.
 
 ## How to build
 ```
