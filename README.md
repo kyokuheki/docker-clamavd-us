@@ -23,3 +23,15 @@ Run bash
 ```
 docker run -it --rm docker-clamavd-us bash
 ```
+
+## How to run with proxy
+
+```
+cat > Dockerfile <<_EOT_
+FROM kyokuheki/docker-clamavd-us
+RUN echo "HTTPProxyServer proxy.example.net" >> /etc/clamav/freshclam.conf \\
+ && echo "HTTPProxyPort 8080" >> /etc/clamav/freshclam.conf
+_EOT_
+docker build -t docker-clamavd-us --no-cache .
+docker run -d --restart=always docker-clamavd-us
+```
