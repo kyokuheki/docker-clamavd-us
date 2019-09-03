@@ -10,6 +10,6 @@ ADD *.conf /etc/clamav/
 # && chmod 750 /run/clamav
 #RUN freshclam
 
-EXPOSE 8080
+VOLUME ["/var/lib/clamav"]
+EXPOSE 3310
 CMD freshclam && ( freshclam -d -c 1 & clamd )
-
