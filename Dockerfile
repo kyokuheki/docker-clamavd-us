@@ -1,7 +1,7 @@
 FROM alpine
 LABEL maintainer Kenzo Okuda <kyokuheki@gmail.com>
 
-RUN apk add --no-cache clamav clamav-daemon clamav-libunrar freshclam runit
+RUN apk add --no-cache clamav clamav-daemon clamav-libunrar freshclam supervisor
 
 COPY *.conf /etc/clamav/
 COPY supervisord.conf /etc/supervisord.conf
