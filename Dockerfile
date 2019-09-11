@@ -1,15 +1,18 @@
 FROM alpine
+LABEL maintainer Kenzo Okuda <kyokuheki@gmail.com>
 
-LABEL maintainer Kyokuheki <kyokuheki@gmail.com>
+RUN apk add --no-cache clamav clamav-daemon clamav-libunrar freshclam runit
 
-RUN apk add --no-cache clamav clamav-daemon clamav-libunrar freshclam
-ADD *.conf /etc/clamav/
+RUN mkdir -p /etc/sv/clamd /etc/sv/freshclam \
+ && echo -e '#!/bin/sh\n exec 1>&2 clamd\n' > /etc/sv/clamd/run \
+ && echo -e '#!/bin/sh\n exec 1>&2 freshclam -d --stdout -v -c1' > /etc/sv/freshclam/run \
+ && chmod +x /etc/sv/clamd/run /etc/sv/freshclam/run
 
-#RUN mkdir /run/clamav \
-# && chown clamav:clamav /run/clamav \
-# && chmod 750 /run/clamav
-#RUN freshclam
+COPY *.conf /etc/clamav/
+COPY entrypoint.sh /
+#COPY clamd /etc/sv/clamd/run
+#COPY freshclam /etc/sv/freshclam/run
 
 VOLUME ["/var/lib/clamav"]
 EXPOSE 3310
-CMD freshclam && ( freshclam -d -c 1 & clamd )
+ENTRYPOINT ["/entrypoint.sh"]
