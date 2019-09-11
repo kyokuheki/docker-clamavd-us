@@ -1,11 +1,11 @@
 FROM alpine
 LABEL maintainer Kenzo Okuda <kyokuheki@gmail.com>
 
-RUN apk add --no-cache clamav clamav-daemon clamav-libunrar freshclam runit
+RUN apk add --no-cache clamav clamav-daemon clamav-libunrar freshclam
 
 COPY *.conf /etc/clamav/
-COPY supervisord.conf /etc/supervisord.conf
+COPY entrypoint.sh /
 
 VOLUME ["/var/lib/clamav"]
 EXPOSE 3310
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT ["/entrypoint.sh"]
