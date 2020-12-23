@@ -9,7 +9,6 @@ RUN mkdir -p /etc/sv/clamd /etc/sv/freshclam \
  && chmod +x /etc/sv/clamd/run /etc/sv/freshclam/run
 
 COPY *.conf /etc/clamav/
-COPY entrypoint.sh /
 #COPY clamd /etc/sv/clamd/run
 #COPY freshclam /etc/sv/freshclam/run
 
