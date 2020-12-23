@@ -38,7 +38,10 @@ docker run -d --restart=always --name clamavd -v clamavd:/var/lib/clamav kyokuhe
 
 ### Enable clamonacc
 
+see https://www.clamav.net/documents/on-access-scanning
+
+Since `clamonacc` uses `fanotify`, you have to set SYS_ADMIN to the `--cap-add` option.
+
 ```shell
 docker run -d --restart=always --name clamavd --cap-add SYS_ADMIN -v clamavd:/var/lib/clamav kyokuheki/clamavd-us:clamonacc
 ```
-
