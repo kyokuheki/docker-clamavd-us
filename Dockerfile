@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:edge
 LABEL maintainer Kenzo Okuda <kyokuheki@gmail.com>
 
 RUN apk add --no-cache clamav clamav-daemon clamav-libunrar freshclam runit
@@ -15,4 +15,10 @@ COPY entrypoint.sh /
 
 VOLUME ["/var/lib/clamav"]
 EXPOSE 3310
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT []
+CMD set -ex; \
+    freshclam --stdout -v || true; \
+    exec /sbin/runsvdir /etc/sv
+
+HEALTHCHECK --start-period=350s --interval=60s --timeout=5s \
+ CMD [ "$(echo PING | nc localhost 3310)" = "PONG" ] || exit 1
